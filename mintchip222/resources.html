@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — Mint Chip Studio</title>
+  <meta name="description" content="Goldy's recommended knitting supplies, patterns, and tutorials." />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .resources-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 2rem 7rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .res-section h2 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid var(--brown);
+    }
+
+    .res-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .res-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      background: var(--warm-white);
+      border: 2px solid var(--cream-dark);
+      border-radius: 14px;
+      padding: 0.85rem 1.1rem;
+      text-decoration: none;
+      color: var(--brown);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .res-item:hover {
+      transform: translateX(5px);
+      border-color: var(--mint);
+      box-shadow: 3px 3px 0 var(--mint-light);
+    }
+
+    .res-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .res-label { flex: 1; line-height: 1.4; }
+    .res-arrow { color: var(--gold); font-size: 0.9rem; opacity: 0.6; flex-shrink: 0; }
+    .res-item:hover .res-arrow { opacity: 1; }
+
+    .amazon-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--gray);
+      font-style: italic;
+      background: var(--mint-light);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      font-weight: 400;
+    }
+
+    @media (max-width: 700px) {
+      .resources-layout { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/logo-wide.png" alt="Mint Chip Studio" /></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="/calculators/">Calculators</a>
+        <ul class="dropdown-menu">
+          <li><a href="/calculators/yarn-converter.html">Yarn Converter</a></li>
+          <li><a href="/calculators/simplified-held-together.html">Simplified Held Together</a></li>
+          <li><a href="/calculators/how-many-skeins.html">How Many Skeins Do I Need</a></li>
+          <li><a href="/calculators/held-together-yarn-weight.html">Held Together Yarn Weight</a></li>
+        </ul>
+      </li>
+      <li><a href="/resources.html" class="active">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div style="background:var(--warm-white);border-bottom:2px solid var(--cream-dark);padding:4rem 2rem 3.5rem;text-align:center;">
+    <span class="eyebrow">Curated Picks</span>
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;margin:0.5rem 0 0.75rem;">Resources</h1>
+    <p style="color:var(--brown-mid);max-width:480px;margin:0 auto;">Goldy's favorite supplies, patterns, and tutorials — the stuff she actually uses.</p>
+  </div>
+
+  <div class="resources-layout">
+
+    <div class="res-section">
+      <h2>Recommended Supplies</h2>
+      <div class="res-list">
+        <a href="https://amzn.to/4cW7wXe" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🧶</span><span class="res-label">Sugar N' Cream Yarn</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/3QUBFPe" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🪡</span><span class="res-label">ChiaoGoo Circular Needles</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/4syDm2U" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🟩</span><span class="res-label">Blocking Mats</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/3Ptuwos" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🔒</span><span class="res-label">Needle Stoppers</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/4lP6U9Z" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🌀</span><span class="res-label">Yarn Swift</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/4rREg9i" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">⚙️</span><span class="res-label">Yarn Winder</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://amzn.to/4sOg8F2" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">📌</span><span class="res-label">Stitch Saver</span><span class="res-arrow">↗</span>
+        </a>
+      </div>
+      <p class="amazon-note">Amazon Associate — I earn from qualifying purchases at no extra cost to you.</p>
+    </div>
+
+    <div class="res-section">
+      <h2>Patterns &amp; Tutorials</h2>
+      <div class="res-list">
+        <a href="https://www.ravelry.com/patterns/library/grandmothers-favorite-the-original" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🧵</span><span class="res-label">Easy Dishcloth for Beginners (Granny's Dish Cloth)</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://www.purlsoho.com/create/2019/01/30/classic-ribbed-hat/" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🧢</span><span class="res-label">Easy Beginner Beanie</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://www.youtube.com/watch?v=BnTH56geOpo" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">▶️</span><span class="res-label">How to Pick Up Dropped Stitches</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://www.ravelry.com/patterns/library/nordic-hat-7" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">❄️</span><span class="res-label">Easy Colorwork for Beginners (Nordic Hat)</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://www.ravelry.com/projects/Goldyknitsmint" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">👤</span><span class="res-label">My Personal Ravelry</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://temperature-blanket.com/yarn-colorway-finder" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">🎨</span><span class="res-label">Yarn Colorway Finder</span><span class="res-arrow">↗</span>
+        </a>
+        <a href="https://www.ravelry.com/patterns/library/bananaheads-baby-beanie" target="_blank" rel="noopener" class="res-item">
+          <span class="res-icon">👶</span><span class="res-label">Cutest Baby Beanie Pattern</span><span class="res-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>Copyright &copy; 2026 MintChip Studio LLC</p>
+  <p>As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+
+</body>
+</html>

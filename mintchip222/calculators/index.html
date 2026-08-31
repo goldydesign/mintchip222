@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculators — Mint Chip Studio</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .calcs-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 2rem 7rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .calc-card {
+      background: var(--warm-white);
+      border: 2px solid var(--cream-dark);
+      border-radius: 24px;
+      padding: 2.5rem;
+      text-decoration: none;
+      color: var(--brown);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 4px 4px 0 transparent;
+    }
+    .calc-card:hover {
+      transform: translate(-3px, -4px);
+      border-color: var(--mint);
+      box-shadow: 6px 6px 0 var(--mint-light);
+    }
+    .calc-num {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--mint);
+      line-height: 1;
+    }
+    .calc-card h2 { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
+    .calc-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.7; flex: 1; }
+    .calc-go {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.5rem;
+    }
+    .calc-go::after { content: ' ↗'; }
+    @media (max-width: 620px) { .calcs-grid { grid-template-columns: 1fr; padding: 3rem 1.5rem 5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/logo-wide.png" alt="Mint Chip Studio" /></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="/calculators/" class="active">Calculators</a>
+        <ul class="dropdown-menu">
+          <li><a href="/calculators/yarn-converter.html">Yarn Converter</a></li>
+          <li><a href="/calculators/simplified-held-together.html">Simplified Held Together</a></li>
+          <li><a href="/calculators/how-many-skeins.html">How Many Skeins Do I Need</a></li>
+          <li><a href="/calculators/held-together-yarn-weight.html">Held Together Yarn Weight</a></li>
+        </ul>
+      </li>
+      <li><a href="/resources.html">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div style="background:var(--warm-white);border-bottom:2px solid var(--cream-dark);padding:4rem 2rem 3.5rem;text-align:center;">
+    <span class="eyebrow">Free Tools</span>
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.05;margin:0.5rem 0 0.75rem;">Calculator Tools</h1>
+    <p style="color:var(--brown-mid);max-width:480px;margin:0 auto;">Free knitting calculators built to take the guesswork out of your projects.</p>
+  </div>
+
+  <div class="calcs-grid">
+    <a href="/calculators/yarn-converter.html" class="calc-card">
+      <div class="calc-num">01</div>
+      <h2>Yarn Converter</h2>
+      <p>Convert yarn quantities between yards, meters, grams, and ounces. Perfect when a pattern uses different units than your skein label.</p>
+      <span class="calc-go">Open Calculator</span>
+    </a>
+    <a href="/calculators/held-together-yarn-weight.html" class="calc-card">
+      <div class="calc-num">02</div>
+      <h2>Held Together Yarn Weight</h2>
+      <p>Holding two strands together changes the effective weight. Find the resulting weight category for pattern substitution.</p>
+      <span class="calc-go">Open Calculator</span>
+    </a>
+    <a href="/calculators/simplified-held-together.html" class="calc-card">
+      <div class="calc-num">03</div>
+      <h2>Simplified Held Together</h2>
+      <p>A streamlined version for quick held-together calculations when you just need a fast answer.</p>
+      <span class="calc-go">Open Calculator</span>
+    </a>
+    <a href="/calculators/how-many-skeins.html" class="calc-card">
+      <div class="calc-num">04</div>
+      <h2>How Many Skeins?</h2>
+      <p>Enter your project's total yardage and your skein's yardage to find exactly how many to buy.</p>
+      <span class="calc-go">Open Calculator</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <p>Copyright &copy; 2026 MintChip Studio LLC</p>
+  <p>As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+
+</body>
+</html>

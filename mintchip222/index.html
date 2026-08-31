@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mint Chip Studio — Knitting Calculators &amp; Resources</title>
+  <meta name="description" content="Free knitting calculators and curated resources to help you try new things and make things you love." />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 5rem 2rem 4rem;
+      background: var(--cream);
+    }
+
+    /* floating knitting emojis — like Syd Graham's scattered product images */
+    .float-item {
+      position: absolute;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      animation: floatBob ease-in-out infinite;
+      user-select: none;
+      filter: drop-shadow(0 6px 14px rgba(59,32,16,0.13));
+      pointer-events: none;
+    }
+
+    .f1  { top: 6%;   left: 3%;   animation-duration: 7s;  animation-delay: 0s;   transform: rotate(-14deg); }
+    .f2  { top: 4%;   left: 26%;  animation-duration: 9s;  animation-delay: -2s;  transform: rotate(6deg);  font-size: clamp(2.5rem,4vw,4rem); }
+    .f3  { top: 3%;   right: 23%; animation-duration: 8s;  animation-delay: -4s;  transform: rotate(-5deg); }
+    .f4  { top: 5%;   right: 2%;  animation-duration: 11s; animation-delay: -1s;  transform: rotate(16deg); font-size: clamp(2rem,3.5vw,3.5rem); }
+    .f5  { bottom: 14%; left: 2%;  animation-duration: 9s;  animation-delay: -3s;  transform: rotate(9deg); }
+    .f6  { bottom: 8%;  left: 24%; animation-duration: 7s;  animation-delay: -5s;  transform: rotate(-8deg); font-size: clamp(2rem,3.5vw,3.5rem); }
+    .f7  { bottom: 6%;  right: 22%;animation-duration: 10s; animation-delay: -2s;  transform: rotate(12deg); }
+    .f8  { bottom: 12%; right: 2%; animation-duration: 8s;  animation-delay: -6s;  transform: rotate(-10deg); font-size: clamp(2rem,3.5vw,3.5rem); }
+    .f9  { top: 42%;  left: 1%;   animation-duration: 12s; animation-delay: -4s;  transform: rotate(5deg);  font-size: clamp(2rem,3vw,3rem); }
+    .f10 { top: 40%;  right: 1%;  animation-duration: 10s; animation-delay: -7s;  transform: rotate(-12deg); font-size: clamp(2rem,3vw,3rem); }
+
+    @keyframes floatBob {
+      0%, 100% { translate: 0 0; }
+      30%       { translate: 4px -10px; }
+      70%       { translate: -3px 7px; }
+    }
+
+    /* center content */
+    .hero-center {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .hero-logo {
+      width: min(420px, 75vw);
+      height: auto;
+      margin-bottom: 2rem;
+      /* slight drop shadow to lift off cream bg */
+      filter: drop-shadow(0 4px 16px rgba(59,32,16,0.08));
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--brown-mid);
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-strip {
+      background: var(--brown);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 0.85rem 0;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 26s linear infinite;
+    }
+    .marquee-track span {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      padding: 0 2rem;
+    }
+    .marquee-track .dot { color: var(--mint); padding: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── TOOLS SECTION ── */
+    .tools-section {
+      padding: 6rem 2rem;
+      background: var(--warm-white);
+      border-top: 2px solid var(--cream-dark);
+      border-bottom: 2px solid var(--cream-dark);
+    }
+
+    .tools-inner { max-width: 1100px; margin: 0 auto; }
+
+    .tools-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .tools-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .tool-card {
+      background: var(--cream);
+      border: 2px solid var(--cream-dark);
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      text-decoration: none;
+      color: var(--brown);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px) rotate(-0.4deg);
+      box-shadow: 0 10px 30px rgba(59,32,16,0.1);
+      border-color: var(--mint);
+    }
+
+    .tool-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--mint);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .tool-card p {
+      font-size: 0.82rem;
+      color: var(--gray);
+      font-weight: 400;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .tool-arrow {
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-top: 0.75rem;
+      font-weight: 900;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .tool-card:hover .tool-arrow { transform: translate(3px, -3px); }
+
+    /* ── ABOUT ── */
+    .about-section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0.6rem 0 1.25rem;
+    }
+
+    .about-text p {
+      color: var(--brown-mid);
+      font-size: 0.98rem;
+      font-weight: 400;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 2rem; }
+
+    .about-quote {
+      background: var(--mint-light);
+      border-left: 4px solid var(--mint-dark);
+      border-radius: 0 16px 16px 0;
+      padding: 2rem 2.25rem;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--brown);
+      line-height: 1.55;
+    }
+
+    .about-quote cite {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      font-style: normal;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mint-dark);
+    }
+
+    /* ── RESOURCES TEASER ── */
+    .res-teaser {
+      background: var(--cream-dark);
+      border-top: 2px solid #e5d8c8;
+      padding: 5.5rem 2rem;
+      text-align: center;
+    }
+
+    .res-teaser h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .res-teaser p {
+      color: var(--brown-mid);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 2.25rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
+      .about-section { grid-template-columns: 1fr; gap: 3rem; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/logo-wide.png" alt="Mint Chip Studio" />
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="/calculators/">Calculators</a>
+        <ul class="dropdown-menu">
+          <li><a href="/calculators/yarn-converter.html">Yarn Converter</a></li>
+          <li><a href="/calculators/simplified-held-together.html">Simplified Held Together</a></li>
+          <li><a href="/calculators/how-many-skeins.html">How Many Skeins Do I Need</a></li>
+          <li><a href="/calculators/held-together-yarn-weight.html">Held Together Yarn Weight</a></li>
+        </ul>
+      </li>
+      <li><a href="/resources.html">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="float-item f1">🧶</span>
+    <span class="float-item f2">🪡</span>
+    <span class="float-item f3">🧤</span>
+    <span class="float-item f4">🧣</span>
+    <span class="float-item f5">✂️</span>
+    <span class="float-item f6">🧶</span>
+    <span class="float-item f7">🪡</span>
+    <span class="float-item f8">🧢</span>
+    <span class="float-item f9">✨</span>
+    <span class="float-item f10">🧶</span>
+
+    <div class="hero-center">
+      <img src="/logo-full.png" alt="Mint Chip Studio" class="hero-logo" />
+      <p class="hero-tagline">Try new things. Make things you love.</p>
+      <div class="hero-buttons">
+        <a href="/calculators/" class="btn btn-mint">Explore Calculators</a>
+        <a href="/resources.html" class="btn">Browse Resources</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Free Knitting Calculators</span><span class="dot">✦</span>
+      <span>Yarn Converter</span><span class="dot">✦</span>
+      <span>Held Together Calculator</span><span class="dot">✦</span>
+      <span>How Many Skeins</span><span class="dot">✦</span>
+      <span>Curated Resources</span><span class="dot">✦</span>
+      <span>Made with 🧶 love</span><span class="dot">✦</span>
+      <span>Free Knitting Calculators</span><span class="dot">✦</span>
+      <span>Yarn Converter</span><span class="dot">✦</span>
+      <span>Held Together Calculator</span><span class="dot">✦</span>
+      <span>How Many Skeins</span><span class="dot">✦</span>
+      <span>Curated Resources</span><span class="dot">✦</span>
+      <span>Made with 🧶 love</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <section class="tools-section">
+    <div class="tools-inner">
+      <div class="tools-header">
+        <h2>The Calculators</h2>
+        <a href="/calculators/" class="btn">See all tools</a>
+      </div>
+      <div class="tools-grid">
+        <a href="/calculators/yarn-converter.html" class="tool-card">
+          <div class="tool-num">01</div>
+          <h3>Yarn Converter</h3>
+          <p>Convert between yards, meters, grams, and ounces instantly.</p>
+          <span class="tool-arrow">↗</span>
+        </a>
+        <a href="/calculators/held-together-yarn-weight.html" class="tool-card">
+          <div class="tool-num">02</div>
+          <h3>Held Together Yarn Weight</h3>
+          <p>Find the effective weight when holding two strands together.</p>
+          <span class="tool-arrow">↗</span>
+        </a>
+        <a href="/calculators/simplified-held-together.html" class="tool-card">
+          <div class="tool-num">03</div>
+          <h3>Simplified Held Together</h3>
+          <p>Quick held-together calculations when you need a fast answer.</p>
+          <span class="tool-arrow">↗</span>
+        </a>
+        <a href="/calculators/how-many-skeins.html" class="tool-card">
+          <div class="tool-num">04</div>
+          <h3>How Many Skeins?</h3>
+          <p>Know exactly how many skeins to buy before you cast on.</p>
+          <span class="tool-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="about-section">
+      <div class="about-text">
+        <span class="eyebrow">About Mint Chip Studio</span>
+        <h2>The resource we all wish we had</h2>
+        <p>Goldy runs Mint Chip Studio with the technical help of Jennifer — a master of both math and knitting. Trying new things should feel exciting, not overwhelming.</p>
+        <p>She created Mint Chip Studio to be the resource she wished she had when she started her creative journey, inspired by her mom's eye for style, her sister's constant creativity, and her dad's entrepreneurial spirit.</p>
+        <a href="/resources.html" class="btn btn-gold">Browse Resources</a>
+      </div>
+      <div>
+        <div class="about-quote">
+          "Not everyone has a Jennifer in their life to help them figure things out."
+          <cite>— Goldy, Founder</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES TEASER -->
+  <section class="res-teaser">
+    <span class="eyebrow">Curated Picks</span>
+    <h2>Supplies &amp; Resources</h2>
+    <p>Goldy's favorite yarn, needles, patterns, and tutorials — the stuff she actually uses.</p>
+    <a href="/resources.html" class="btn btn-mint">Browse Resources</a>
+  </section>
+
+</main>
+
+<footer>
+  <p>Copyright &copy; 2026 MintChip Studio LLC</p>
+  <p>As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+
+</body>
+</html>
