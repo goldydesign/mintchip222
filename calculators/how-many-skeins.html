@@ -38,11 +38,21 @@
       <p style="color:var(--brown-mid);">Know exactly how many skeins to buy before you cast on.</p>
     </div>
     <div class="calc-box">
-      <div class="calc-placeholder">
-        <div class="placeholder-icon">📏</div>
-        <p>Your calculator goes here.</p>
-        <p class="placeholder-hint">Replace this <code>.calc-placeholder</code> div with your embed or calculator HTML inside <code>calculators/how-many-skeins.html</code>.</p>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label for="total-yardage">Project total yardage</label>
+          <input type="number" id="total-yardage" min="0" step="any" placeholder="e.g. 1200" />
+        </div>
+        <div class="calc-field">
+          <label for="skein-yardage">Yardage per skein</label>
+          <input type="number" id="skein-yardage" min="0" step="any" placeholder="e.g. 220" />
+        </div>
       </div>
+      <div class="calc-result">
+        <div class="result-label">Skeins to Buy</div>
+        <div class="result-value" id="result-value">—</div>
+      </div>
+      <p class="calc-note" id="result-note"></p>
     </div>
     <div class="calc-subnav">
       <a href="/calculators/simplified-held-together.html" class="btn">← Simplified Held Together</a>
@@ -54,5 +64,33 @@
   <p>Copyright &copy; 2026 MintChip Studio LLC</p>
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
+<script>
+  const totalInput = document.getElementById('total-yardage');
+  const skeinInput = document.getElementById('skein-yardage');
+  const resultValue = document.getElementById('result-value');
+  const resultNote = document.getElementById('result-note');
+
+  function update() {
+    const total = parseFloat(totalInput.value);
+    const perSkein = parseFloat(skeinInput.value);
+
+    if (!Number.isFinite(total) || !Number.isFinite(perSkein) || total <= 0 || perSkein <= 0) {
+      resultValue.textContent = '—';
+      resultNote.textContent = '';
+      return;
+    }
+
+    const skeins = Math.ceil(total / perSkein);
+    const totalYardage = skeins * perSkein;
+    const leftover = totalYardage - total;
+
+    resultValue.textContent = skeins;
+    resultNote.textContent =
+      `${skeins} skein${skeins === 1 ? '' : 's'} gives you ${totalYardage.toFixed(0)} yards, about ${leftover.toFixed(0)} yards more than you need.`;
+  }
+
+  totalInput.addEventListener('input', update);
+  skeinInput.addEventListener('input', update);
+</script>
 </body>
 </html>

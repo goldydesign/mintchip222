@@ -20,33 +20,6 @@
       background: var(--cream);
     }
 
-    /* floating knitting emojis — like Syd Graham's scattered product images */
-    .float-item {
-      position: absolute;
-      font-size: clamp(3rem, 5.5vw, 5.5rem);
-      animation: floatBob ease-in-out infinite;
-      user-select: none;
-      filter: drop-shadow(0 6px 14px rgba(59,32,16,0.13));
-      pointer-events: none;
-    }
-
-    .f1  { top: 6%;   left: 3%;   animation-duration: 7s;  animation-delay: 0s;   transform: rotate(-14deg); }
-    .f2  { top: 4%;   left: 26%;  animation-duration: 9s;  animation-delay: -2s;  transform: rotate(6deg);  font-size: clamp(2.5rem,4vw,4rem); }
-    .f3  { top: 3%;   right: 23%; animation-duration: 8s;  animation-delay: -4s;  transform: rotate(-5deg); }
-    .f4  { top: 5%;   right: 2%;  animation-duration: 11s; animation-delay: -1s;  transform: rotate(16deg); font-size: clamp(2rem,3.5vw,3.5rem); }
-    .f5  { bottom: 14%; left: 2%;  animation-duration: 9s;  animation-delay: -3s;  transform: rotate(9deg); }
-    .f6  { bottom: 8%;  left: 24%; animation-duration: 7s;  animation-delay: -5s;  transform: rotate(-8deg); font-size: clamp(2rem,3.5vw,3.5rem); }
-    .f7  { bottom: 6%;  right: 22%;animation-duration: 10s; animation-delay: -2s;  transform: rotate(12deg); }
-    .f8  { bottom: 12%; right: 2%; animation-duration: 8s;  animation-delay: -6s;  transform: rotate(-10deg); font-size: clamp(2rem,3.5vw,3.5rem); }
-    .f9  { top: 42%;  left: 1%;   animation-duration: 12s; animation-delay: -4s;  transform: rotate(5deg);  font-size: clamp(2rem,3vw,3rem); }
-    .f10 { top: 40%;  right: 1%;  animation-duration: 10s; animation-delay: -7s;  transform: rotate(-12deg); font-size: clamp(2rem,3vw,3rem); }
-
-    @keyframes floatBob {
-      0%, 100% { translate: 0 0; }
-      30%       { translate: 4px -10px; }
-      70%       { translate: -3px 7px; }
-    }
-
     /* center content */
     .hero-center {
       position: relative;
@@ -298,17 +271,6 @@
 
   <!-- HERO -->
   <section class="hero">
-    <span class="float-item f1">🧶</span>
-    <span class="float-item f2">🪡</span>
-    <span class="float-item f3">🧤</span>
-    <span class="float-item f4">🧣</span>
-    <span class="float-item f5">✂️</span>
-    <span class="float-item f6">🧶</span>
-    <span class="float-item f7">🪡</span>
-    <span class="float-item f8">🧢</span>
-    <span class="float-item f9">✨</span>
-    <span class="float-item f10">🧶</span>
-
     <div class="hero-center">
       <img src="/logo-full.png" alt="Mint Chip Studio" class="hero-logo" />
       <p class="hero-tagline">Try new things. Make things you love.</p>
@@ -327,13 +289,13 @@
       <span>Held Together Calculator</span><span class="dot">✦</span>
       <span>How Many Skeins</span><span class="dot">✦</span>
       <span>Curated Resources</span><span class="dot">✦</span>
-      <span>Made with 🧶 love</span><span class="dot">✦</span>
+      <span>Made with love</span><span class="dot">✦</span>
       <span>Free Knitting Calculators</span><span class="dot">✦</span>
       <span>Yarn Converter</span><span class="dot">✦</span>
       <span>Held Together Calculator</span><span class="dot">✦</span>
       <span>How Many Skeins</span><span class="dot">✦</span>
       <span>Curated Resources</span><span class="dot">✦</span>
-      <span>Made with 🧶 love</span><span class="dot">✦</span>
+      <span>Made with love</span><span class="dot">✦</span>
     </div>
   </div>
 

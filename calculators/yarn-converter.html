@@ -38,11 +38,30 @@
       <p style="color:var(--brown-mid);">Convert between yards, meters, grams, and ounces.</p>
     </div>
     <div class="calc-box">
-      <div class="calc-placeholder">
-        <div class="placeholder-icon">🧮</div>
-        <p>Your calculator goes here.</p>
-        <p class="placeholder-hint">Replace this <code>.calc-placeholder</code> div with your embed or calculator HTML inside <code>calculators/yarn-converter.html</code>.</p>
+      <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">Length: Yards ⇄ Meters</h2>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label for="yards">Yards</label>
+          <input type="number" id="yards" min="0" step="any" placeholder="0" />
+        </div>
+        <div class="calc-field">
+          <label for="meters">Meters</label>
+          <input type="number" id="meters" min="0" step="any" placeholder="0" />
+        </div>
       </div>
+
+      <h2 style="font-size:1.1rem;font-weight:800;margin:2rem 0 1.25rem;">Weight: Grams ⇄ Ounces</h2>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label for="grams">Grams</label>
+          <input type="number" id="grams" min="0" step="any" placeholder="0" />
+        </div>
+        <div class="calc-field">
+          <label for="ounces">Ounces</label>
+          <input type="number" id="ounces" min="0" step="any" placeholder="0" />
+        </div>
+      </div>
+      <p class="calc-note">Enter a value in any field — the paired unit updates instantly. 1 yard = 0.9144 m · 1 oz = 28.3495 g.</p>
     </div>
     <div class="calc-subnav">
       <span></span>
@@ -54,5 +73,31 @@
   <p>Copyright &copy; 2026 MintChip Studio LLC</p>
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
+<script>
+  const YD_PER_M = 1 / 0.9144;
+  const G_PER_OZ = 28.3495;
+
+  function linkPair(idA, idB, aToB, bToA) {
+    const a = document.getElementById(idA);
+    const b = document.getElementById(idB);
+    a.addEventListener('input', () => {
+      if (a.value === '') { b.value = ''; return; }
+      const n = parseFloat(a.value);
+      b.value = Number.isFinite(n) ? round(aToB(n)) : '';
+    });
+    b.addEventListener('input', () => {
+      if (b.value === '') { a.value = ''; return; }
+      const n = parseFloat(b.value);
+      a.value = Number.isFinite(n) ? round(bToA(n)) : '';
+    });
+  }
+
+  function round(n) {
+    return Math.round(n * 10000) / 10000;
+  }
+
+  linkPair('yards', 'meters', y => y * 0.9144, m => m * YD_PER_M);
+  linkPair('grams', 'ounces', g => g / G_PER_OZ, oz => oz * G_PER_OZ);
+</script>
 </body>
 </html>
