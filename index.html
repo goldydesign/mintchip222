@@ -80,7 +80,7 @@
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
     }
 
@@ -271,12 +271,8 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .tools-grid { grid-template-columns: repeat(2, 1fr); }
-    }
     @media (max-width: 700px) {
       .about-section { grid-template-columns: 1fr; gap: 3rem; }
-      .tools-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 480px) {
       .tools-grid { grid-template-columns: 1fr; }
@@ -300,9 +296,7 @@
         <a href="/calculators/">Calculators</a>
         <ul class="dropdown-menu">
           <li><a href="/calculators/yarn-converter.html">Yarn Converter</a></li>
-          <li><a href="/calculators/simplified-held-together.html">Simplified Held Together</a></li>
           <li><a href="/calculators/how-many-skeins.html">How Many Skeins Do I Need</a></li>
-          <li><a href="/calculators/held-together-yarn-weight.html">Held Together Yarn Weight</a></li>
         </ul>
       </li>
       <li><a href="/resources.html">Resources</a></li>
@@ -335,14 +329,6 @@
         <a href="/calculators/yarn-converter.html" class="tool-card">
           <h3>Yarn Converter</h3>
           <p>Switching yarns? Find out how many skeins of your yarn you'll need.</p>
-        </a>
-        <a href="/calculators/held-together-yarn-weight.html" class="tool-card">
-          <h3>Held Together Yarn Weight</h3>
-          <p>Find the effective weight when holding two strands together.</p>
-        </a>
-        <a href="/calculators/simplified-held-together.html" class="tool-card">
-          <h3>Simplified Held Together</h3>
-          <p>Quick held-together calculations when you need a fast answer.</p>
         </a>
         <a href="/calculators/how-many-skeins.html" class="tool-card">
           <h3>How Many Skeins?</h3>
