@@ -183,6 +183,17 @@
 
     .about-text p:last-of-type { margin-bottom: 2rem; }
 
+    .about-photo {
+      width: 78%;
+      max-width: 320px;
+      margin: 0 auto 2rem;
+      display: block;
+      border-radius: 20px;
+      border: 3px solid var(--warm-white);
+      box-shadow: 6px 6px 0 var(--mint-light);
+      transform: rotate(-2.5deg);
+    }
+
     .about-quote {
       background: var(--mint-light);
       border-left: 4px solid var(--mint-dark);
@@ -193,6 +204,7 @@
       font-size: 1.2rem;
       color: var(--brown);
       line-height: 1.55;
+      transform: rotate(1deg);
     }
 
     .about-quote cite {
@@ -346,6 +358,7 @@
         <a href="/resources.html" class="btn btn-gold">Browse Resources</a>
       </div>
       <div>
+        <img src="/goldy-small.jpg" alt="Goldy in her yarn studio" class="about-photo" />
         <div class="about-quote">
           "Not everyone has a Jennifer in their life to help them figure things out."
           <cite>— Goldy, Founder</cite>
