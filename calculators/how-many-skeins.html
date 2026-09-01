@@ -35,25 +35,35 @@
     <div style="margin-bottom:2rem;">
       <span class="eyebrow">Calculator 04</span>
       <h1 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.05;margin-bottom:0.4rem;">How Many Skeins Do I Need?</h1>
-      <p style="color:var(--brown-mid);">Know exactly how many skeins to buy before you cast on.</p>
+      <p style="color:var(--brown-mid);">Divide the total grams for your size by grams per skein to know exactly how many to buy.</p>
     </div>
-    <div class="calc-box">
-      <div class="calc-row">
-        <div class="calc-field">
-          <label for="total-yardage">Project total yardage</label>
-          <input type="number" id="total-yardage" min="0" step="any" placeholder="e.g. 1200" />
+
+    <div id="mcsWrap">
+      <div class="mcs-card">
+        <h2 class="mcs-title">How many skeins will I need?</h2>
+        <p class="mcs-sub">Divide total grams for your size by grams per skein.</p>
+
+        <div class="mcs-grid">
+          <div class="mcs-field">
+            <label>Your yarn grams per skein</label>
+            <input type="number" inputmode="decimal" id="c2" placeholder="Grams" />
+          </div>
+
+          <div class="mcs-field">
+            <label>Total grams needed to knit your size</label>
+            <input type="number" inputmode="decimal" id="c4" placeholder="Grams" />
+          </div>
         </div>
-        <div class="calc-field">
-          <label for="skein-yardage">Yardage per skein</label>
-          <input type="number" id="skein-yardage" min="0" step="any" placeholder="e.g. 220" />
+
+        <button type="button" class="mcs-btn" onclick="calculate()">Calculate</button>
+
+        <div class="mcs-results">
+          <div class="row"><span>Exact skeins needed</span><strong id="out1">—</strong></div>
+          <div class="row"><span>Skeins to buy (rounded up)</span><strong id="out2">—</strong></div>
         </div>
       </div>
-      <div class="calc-result">
-        <div class="result-label">Skeins to Buy</div>
-        <div class="result-value" id="result-value">—</div>
-      </div>
-      <p class="calc-note" id="result-note"></p>
     </div>
+
     <div class="calc-subnav">
       <a href="/calculators/simplified-held-together.html" class="btn">← Simplified Held Together</a>
       <span></span>
@@ -64,33 +74,103 @@
   <p>Copyright &copy; 2026 MintChip Studio LLC</p>
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
+
+<style>
+#mcsWrap { padding: 10px; }
+
+.mcs-card{
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 18px;
+  border-radius: 18px;
+  background: #FAFAF7;
+  border: 1px solid #E6E2DB;
+  box-shadow: 0 12px 28px rgba(40,30,20,0.08);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.mcs-title{
+  text-align:center; color:#2C1F19;
+  font-size: 26px; font-weight:800;
+  margin: 0 0 6px; line-height:1.15;
+}
+.mcs-sub{
+  text-align:center; color:#8B6B3F;
+  margin: 0 0 16px; font-size: 14px;
+}
+.mcs-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+.mcs-field{ display:flex; flex-direction:column; gap:6px; }
+.mcs-card label{ font-size:13px; color:#4A3A2F; }
+
+.mcs-card input{
+  border:1px solid #D8D3C7;
+  background:#FFFFFF;
+  border-radius:14px;
+  padding: 14px 14px;
+  font-size:16px;
+  line-height:1.2;
+}
+
+.mcs-btn{
+  width:100%;
+  margin-top:14px;
+  padding: 14px;
+  border-radius:16px;
+  border:none;
+  background:#2C1F19;
+  color:#FAFAF7;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.mcs-results{
+  margin-top:16px;
+  padding:12px;
+  border-radius:16px;
+  background:#F2F3EE;
+  border:1px solid #DADFD5;
+}
+.mcs-results .row{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  gap:10px;
+  background:#FFFFFF;
+  border-radius:12px;
+  padding:12px 12px;
+  margin-bottom:10px;
+  color:#2C1F19;
+}
+.mcs-results .row span{ flex:1; font-size:14px; }
+.mcs-results .row strong{ font-size:16px; min-width:72px; text-align:right; }
+
+@media (min-width:720px){
+  .mcs-card{ padding:24px; }
+  .mcs-title{ font-size:32px; }
+  .mcs-grid{ grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width:360px){
+  .mcs-results .row{ flex-direction:column; }
+  .mcs-results .row strong{ text-align:left; min-width: unset; }
+}
+</style>
+
 <script>
-  const totalInput = document.getElementById('total-yardage');
-  const skeinInput = document.getElementById('skein-yardage');
-  const resultValue = document.getElementById('result-value');
-  const resultNote = document.getElementById('result-note');
+function calculate(){
+  const gramsPerSkein = parseFloat(document.getElementById("c2").value) || 0;
+  const totalGrams = parseFloat(document.getElementById("c4").value) || 0;
 
-  function update() {
-    const total = parseFloat(totalInput.value);
-    const perSkein = parseFloat(skeinInput.value);
+  const exact = (gramsPerSkein > 0 && totalGrams > 0)
+    ? totalGrams / gramsPerSkein
+    : null;
 
-    if (!Number.isFinite(total) || !Number.isFinite(perSkein) || total <= 0 || perSkein <= 0) {
-      resultValue.textContent = '—';
-      resultNote.textContent = '';
-      return;
-    }
+  const rounded = exact !== null ? Math.ceil(exact) : null;
 
-    const skeins = Math.ceil(total / perSkein);
-    const totalYardage = skeins * perSkein;
-    const leftover = totalYardage - total;
+  document.getElementById("out1").textContent =
+    exact === null ? "—" : exact.toFixed(2);
 
-    resultValue.textContent = skeins;
-    resultNote.textContent =
-      `${skeins} skein${skeins === 1 ? '' : 's'} gives you ${totalYardage.toFixed(0)} yards, about ${leftover.toFixed(0)} yards more than you need.`;
-  }
-
-  totalInput.addEventListener('input', update);
-  skeinInput.addEventListener('input', update);
+  document.getElementById("out2").textContent =
+    rounded === null ? "—" : rounded;
+}
 </script>
 </body>
 </html>

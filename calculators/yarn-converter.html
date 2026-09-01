@@ -6,6 +6,80 @@
   <title>Yarn Converter — Mint Chip Studio</title>
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/calculators/calc.css" />
+  <style>
+    #mcsWrap { padding: 10px; }
+    .mcs-card{
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 18px;
+      border-radius: 18px;
+      background: #FAFAF7;
+      border: 1px solid #E6E2DB;
+      box-shadow: 0 12px 28px rgba(40,30,20,0.08);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .mcs-title{ text-align:center; color:#2C1F19; font-size: 26px; font-weight:800; margin: 0 0 6px; line-height:1.15; }
+    .mcs-sub{ text-align:center; color:#8B6B3F; margin: 0 0 16px; font-size: 14px; }
+    .mcs-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    .mcs-field{ display:flex; flex-direction:column; gap:6px; }
+    .mcs-card label{ font-size:13px; color:#4A3A2F; }
+    .mcs-card input{
+      border:1px solid #D8D3C7; background:#FFFFFF; border-radius:14px;
+      padding: 14px 14px; font-size:16px; line-height:1.2;
+    }
+    .mcs-card input[type=number]::-webkit-inner-spin-button,
+    .mcs-card input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .mcs-card input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+    .mcs-btn{
+      width:100%; margin-top:14px; padding: 14px; border-radius:16px; border:none;
+      background:#2C1F19; color:#FAFAF7; font-weight:700; font-size:16px; cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mcs-results{ margin-top:16px; padding:12px; border-radius:16px; background:#F2F3EE; border:1px solid #DADFD5; }
+    .mcs-results .row{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+      background:#FFFFFF; border-radius:12px; padding:12px 12px; margin-bottom:10px; color:#2C1F19;
+    }
+    .mcs-results .row:last-child{ margin-bottom:0; }
+    .mcs-results .row span{ flex:1; font-size:14px; }
+    .mcs-results .row strong{ font-size:16px; min-width:72px; text-align:right; }
+    .mcs-details{ margin-top:14px; border:1px solid #E6E2DB; border-radius:16px; background:#FFFFFF; overflow:hidden; }
+    .mcs-summary{
+      list-style:none; cursor:pointer; padding:12px 12px; display:flex; align-items:center;
+      justify-content:space-between; gap:10px; color:#2C1F19; font-weight:700; font-size:14px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mcs-details > summary::-webkit-details-marker{ display:none; }
+    .mcs-details > summary::marker{ content:""; }
+    .mcs-chevron{ font-size:16px; line-height:1; transform: rotate(0deg); transition: transform 160ms ease; }
+    .mcs-details[open] .mcs-chevron{ transform: rotate(180deg); }
+    .mcs-details-body{ padding: 12px 12px 14px; background:#FAFAF7; border-top:1px solid #E6E2DB; }
+    .mcs-math{ display:flex; flex-direction:column; gap:10px; }
+    .mcs-math-row{ background:#FFFFFF; border:1px solid #EFEAE2; border-radius:12px; padding:10px 10px; display:flex; flex-direction:column; gap:6px; }
+    .mcs-math-label{ font-size:13px; color:#2C1F19; font-weight:700; }
+    .mcs-math-eq{ font-size:13px; color:#4A3A2F; }
+    .mcs-math-eq code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px; background:#F2F3EE; border:1px solid #DADFD5; padding:2px 6px; border-radius:999px; display:inline-block;
+    }
+    .mcs-math-val{ font-size:14px; color:#2C1F19; }
+    .mcs-note{ margin: 10px 2px 0; font-size: 12px; color:#8B6B3F; line-height:1.35; }
+    @media (min-width:720px){
+      .mcs-card{ padding:24px; }
+      .mcs-title{ font-size:32px; }
+      .mcs-grid{ grid-template-columns:1fr 1fr; }
+      .mcs-field:nth-child(3){ grid-column:span 2; }
+      .mcs-card input{ padding:12px 12px; font-size:15px; }
+      .mcs-btn{ padding:12px; }
+      .mcs-math-row{ flex-direction:row; align-items:center; justify-content:space-between; gap:12px; }
+      .mcs-math-eq{ flex:1; text-align:center; }
+      .mcs-math-val{ min-width:110px; text-align:right; }
+    }
+    @media (max-width:360px){
+      .mcs-results .row{ flex-direction:column; }
+      .mcs-results .row strong{ text-align:left; min-width: unset; }
+    }
+  </style>
 </head>
 <body>
 <nav>
@@ -35,37 +109,73 @@
     <div style="margin-bottom:2rem;">
       <span class="eyebrow">Calculator 01</span>
       <h1 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.05;margin-bottom:0.4rem;">Yarn Converter</h1>
-      <p style="color:var(--brown-mid);">Convert between yards, meters, grams, and ounces.</p>
+      <p style="color:var(--brown-mid);">Figure out how many skeins of your chosen yarn you'll need, based on a pattern's suggested yarn.</p>
     </div>
-    <div class="calc-box">
-      <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">Length: Yards ⇄ Meters</h2>
-      <div class="calc-row">
-        <div class="calc-field">
-          <label for="yards">Yards</label>
-          <input type="number" id="yards" min="0" step="any" placeholder="0" />
+    <div id="mcsWrap">
+      <div class="mcs-card">
+        <h2 class="mcs-title">If I use a different yarn, how many skeins will I need?</h2>
+        <p class="mcs-sub">Convert the pattern's suggested yarn gram and yardage/meterage suggestions into your chosen yarn.</p>
+        <div class="mcs-grid">
+          <div class="mcs-field">
+            <label>Suggested yarn grams per skein</label>
+            <input type="number" inputmode="decimal" id="c2" placeholder="Grams" />
+          </div>
+          <div class="mcs-field">
+            <label>Suggested yarn yards/meters per skein</label>
+            <input type="number" inputmode="decimal" id="c3" placeholder="Yards/Meters" />
+          </div>
+          <div class="mcs-field">
+            <label>Total grams needed to knit your size</label>
+            <input type="number" inputmode="decimal" id="c4" placeholder="Grams" />
+          </div>
+          <div class="mcs-field">
+            <label>Your chosen yarn yards/meters per skein</label>
+            <input type="number" inputmode="decimal" id="c6" placeholder="Yards/Meters" />
+          </div>
         </div>
-        <div class="calc-field">
-          <label for="meters">Meters</label>
-          <input type="number" id="meters" min="0" step="any" placeholder="0" />
-        </div>
-      </div>
+        <button type="button" class="mcs-btn" onclick="calculate()">Calculate</button>
 
-      <h2 style="font-size:1.1rem;font-weight:800;margin:2rem 0 1.25rem;">Weight: Grams ⇄ Ounces</h2>
-      <div class="calc-row">
-        <div class="calc-field">
-          <label for="grams">Grams</label>
-          <input type="number" id="grams" min="0" step="any" placeholder="0" />
+        <div class="mcs-results">
+          <div class="row"><span>Suggested yarn skein amount</span><strong id="out1">—</strong></div>
+          <div class="row"><span>Chosen yarn skein amount (rounded up)</span><strong id="out3">—</strong></div>
+          <div class="row"><span>Chosen yarn skein amount (not rounded)</span><strong id="out4">—</strong></div>
+          <div class="row"><span>Yards/meters needed for the project</span><strong id="out2">—</strong></div>
         </div>
-        <div class="calc-field">
-          <label for="ounces">Ounces</label>
-          <input type="number" id="ounces" min="0" step="any" placeholder="0" />
-        </div>
+
+        <details class="mcs-details" id="mathDetails">
+          <summary class="mcs-summary">
+            <span>See the math behind this calculator</span>
+            <span class="mcs-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="mcs-details-body">
+            <div class="mcs-math">
+              <div class="mcs-math-row">
+                <div class="mcs-math-label">1) Suggested skeins needed</div>
+                <div class="mcs-math-eq"><code id="eq1">—</code></div>
+                <div class="mcs-math-val"><strong id="m1">—</strong></div>
+              </div>
+              <div class="mcs-math-row">
+                <div class="mcs-math-label">2) Total yards/meters needed</div>
+                <div class="mcs-math-eq"><code id="eq2">—</code></div>
+                <div class="mcs-math-val"><strong id="m2">—</strong></div>
+              </div>
+              <div class="mcs-math-row">
+                <div class="mcs-math-label">3) Chosen skeins needed (not rounded)</div>
+                <div class="mcs-math-eq"><code id="eq3">—</code></div>
+                <div class="mcs-math-val"><strong id="m3">—</strong></div>
+              </div>
+              <div class="mcs-math-row">
+                <div class="mcs-math-label">4) Chosen skeins needed (rounded up)</div>
+                <div class="mcs-math-eq"><code id="eq4">—</code></div>
+                <div class="mcs-math-val"><strong id="m4">—</strong></div>
+              </div>
+            </div>
+            <p class="mcs-note">
+              Tip: We round up because you can't buy a fraction of a skein—and it's safer to have a little extra yarn.
+            </p>
+          </div>
+        </details>
       </div>
-      <p class="calc-note">Enter a value in any field — the paired unit updates instantly. 1 yard = 0.9144 m · 1 oz = 28.3495 g.</p>
-    </div>
-    <div class="calc-subnav">
-      <span></span>
-      <a href="/calculators/held-together-yarn-weight.html" class="btn">Held Together Yarn Weight →</a>
     </div>
   </div>
 </main>
@@ -74,30 +184,54 @@
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
 <script>
-  const YD_PER_M = 1 / 0.9144;
-  const G_PER_OZ = 28.3495;
+  (function initGA4(){
+    const MEASUREMENT_ID = "G-XXXXXXXXXX";
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = window.gtag || gtag;
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
+    document.head.appendChild(s);
+    window.gtag("js", new Date());
+    window.gtag("config", MEASUREMENT_ID);
+  })();
 
-  function linkPair(idA, idB, aToB, bToA) {
-    const a = document.getElementById(idA);
-    const b = document.getElementById(idB);
-    a.addEventListener('input', () => {
-      if (a.value === '') { b.value = ''; return; }
-      const n = parseFloat(a.value);
-      b.value = Number.isFinite(n) ? round(aToB(n)) : '';
-    });
-    b.addEventListener('input', () => {
-      if (b.value === '') { a.value = ''; return; }
-      const n = parseFloat(b.value);
-      a.value = Number.isFinite(n) ? round(bToA(n)) : '';
-    });
+  function calculate(){
+    trackCalculatorClick("calculate");
+    const C2 = parseFloat(document.getElementById("c2").value) || 0;
+    const C3 = parseFloat(document.getElementById("c3").value) || 0;
+    const C4 = parseFloat(document.getElementById("c4").value) || 0;
+    const C6 = parseFloat(document.getElementById("c6").value) || 0;
+
+    const suggestedSkeins = (C2 > 0 && C4 > 0) ? (C4 / C2) : null;
+    const totalYards = (suggestedSkeins !== null && C3 > 0) ? (suggestedSkeins * C3) : null;
+    const yourSkeinsRaw = (totalYards !== null && C6 > 0) ? (totalYards / C6) : null;
+    const yourSkeinsRounded = (yourSkeinsRaw !== null) ? Math.ceil(yourSkeinsRaw) : null;
+
+    document.getElementById("out1").textContent = suggestedSkeins === null ? "—" : suggestedSkeins.toFixed(2);
+    document.getElementById("out3").textContent = yourSkeinsRounded === null ? "—" : yourSkeinsRounded;
+    document.getElementById("out4").textContent = yourSkeinsRaw === null ? "—" : yourSkeinsRaw.toFixed(2);
+    document.getElementById("out2").textContent = totalYards === null ? "—" : totalYards.toFixed(0);
+
+    document.getElementById("eq1").textContent = suggestedSkeins === null ? "—" : `${C4} ÷ ${C2}`;
+    document.getElementById("m1").textContent  = suggestedSkeins === null ? "—" : `${suggestedSkeins.toFixed(4)}`;
+    document.getElementById("eq2").textContent = totalYards === null ? "—" : `${suggestedSkeins.toFixed(4)} × ${C3}`;
+    document.getElementById("m2").textContent  = totalYards === null ? "—" : `${totalYards.toFixed(2)}`;
+    document.getElementById("eq3").textContent = yourSkeinsRaw === null ? "—" : `${totalYards.toFixed(2)} ÷ ${C6}`;
+    document.getElementById("m3").textContent  = yourSkeinsRaw === null ? "—" : `${yourSkeinsRaw.toFixed(4)}`;
+    document.getElementById("eq4").textContent = yourSkeinsRounded === null ? "—" : `Ceiling(${yourSkeinsRaw.toFixed(4)})`;
+    document.getElementById("m4").textContent  = yourSkeinsRounded === null ? "—" : String(yourSkeinsRounded);
   }
 
-  function round(n) {
-    return Math.round(n * 10000) / 10000;
+  function trackCalculatorClick(buttonName){
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "calculator_click", {
+        calculator_name: "yarn_skein_converter",
+        button_name: buttonName || "calculate"
+      });
+    }
   }
-
-  linkPair('yards', 'meters', y => y * 0.9144, m => m * YD_PER_M);
-  linkPair('grams', 'ounces', g => g / G_PER_OZ, oz => oz * G_PER_OZ);
 </script>
 </body>
 </html>

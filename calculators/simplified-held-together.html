@@ -6,7 +6,6 @@
   <title>Simplified Held Together Calculator — Mint Chip Studio</title>
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/calculators/calc.css" />
-  <script src="/calculators/yarn-weights.js"></script>
 </head>
 <body>
 <nav>
@@ -38,22 +37,41 @@
       <h1 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.05;margin-bottom:0.4rem;">Simplified Held Together Calculator</h1>
       <p style="color:var(--brown-mid);">A streamlined calculator for quick held-together combinations.</p>
     </div>
-    <div class="calc-box">
-      <div class="calc-row">
-        <div class="calc-field">
-          <label for="strand-a">Strand A</label>
-          <select id="strand-a"></select>
+
+    <div id="wpiWrap">
+      <div class="wpi-card">
+        <h2 class="wpi-title">Hold 2 Yarns Together: What Weight Do You Get?</h2>
+        <p class="wpi-sub">Pick two yarn weights and this estimates the combined yarn weight, without knowing the yardage or grams. It will be less accurate than the above option. (approx).</p>
+
+        <div class="wpi-grid">
+          <div class="wpi-field">
+            <label>Yarn A weight</label>
+            <select id="yarnA"></select>
+          </div>
+
+          <div class="wpi-field">
+            <label>Yarn B weight</label>
+            <select id="yarnB"></select>
+          </div>
         </div>
-        <div class="calc-field">
-          <label for="strand-b">Strand B</label>
-          <select id="strand-b"></select>
-        </div>
-      </div>
-      <div class="calc-result">
-        <div class="result-label">Combined Weight</div>
-        <div class="result-value" id="result-value">—</div>
+
+        <button type="button" class="wpi-btn" id="calcBtn">Calculate</button>
+
+        <div class="wpi-result" id="result" aria-live="polite"></div>
+
+        <details class="wpi-details">
+          <summary>How this works (quick)</summary>
+          <div class="wpi-details-inner">
+            <p>
+              This uses typical <b>WPI (wraps per inch)</b> ranges per yarn weight. When holding two strands together,
+              it estimates the combined thickness by adding cross-sectional area (so thickness doesn't just "add").
+              It's a solid starting point — always swatch if it matters.
+            </p>
+          </div>
+        </details>
       </div>
     </div>
+
     <div class="calc-subnav">
       <a href="/calculators/held-together-yarn-weight.html" class="btn">← Held Together</a>
       <a href="/calculators/how-many-skeins.html" class="btn">How Many Skeins →</a>
@@ -64,29 +82,207 @@
   <p>Copyright &copy; 2026 MintChip Studio LLC</p>
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
+
+<style>
+  #wpiWrap { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+  .wpi-card{
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 22px;
+    border-radius: 18px;
+    border: 1px solid #e8e2d6;
+    background: #fbf8f2;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  }
+  .wpi-title{
+    margin: 0 0 6px 0;
+    font-size: 22px;
+    letter-spacing: .2px;
+    color: #2a241c;
+  }
+  .wpi-sub{
+    margin: 0 0 16px 0;
+    color: #6a5f50;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .wpi-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 620px){
+    .wpi-grid{ grid-template-columns: 1fr; }
+  }
+  .wpi-field label{
+    display:block;
+    font-size: 13px;
+    color: #4f4538;
+    margin: 0 0 6px 2px;
+  }
+  .wpi-field select{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid #e0d8cb;
+    background: #fff;
+    font-size: 15px;
+    outline: none;
+  }
+  .wpi-field select:focus{
+    border-color: #c7b59a;
+    box-shadow: 0 0 0 3px rgba(199,181,154,.35);
+  }
+  .wpi-btn{
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border: 0;
+    border-radius: 14px;
+    background: #6b5138;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .wpi-btn:hover{ filter: brightness(1.05); }
+  .wpi-result{
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid #eee6da;
+    color: #2a241c;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 24px;
+  }
+  .wpi-chip{
+    display:inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: #efe6d8;
+    border: 1px solid #e3d8c6;
+    margin-right: 8px;
+    font-size: 12px;
+    color: #4f4538;
+  }
+  .wpi-details{
+    margin-top: 10px;
+    color: #6a5f50;
+    font-size: 13px;
+  }
+  .wpi-details-inner{
+    margin-top: 8px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #eee6da;
+    border-radius: 14px;
+  }
+</style>
+
 <script>
-  const COMMON_WEIGHTS = YARN_WEIGHTS.filter(w => w.name !== 'Lace' && w.name !== 'Jumbo');
-  const selA = document.getElementById('strand-a');
-  const selB = document.getElementById('strand-b');
-  const resultValue = document.getElementById('result-value');
+(function(){
+  // Typical WPI ranges (approx) by yarn weight.
+  // Source: common industry ranges; different brands vary.
+  const WEIGHTS = [
+    { key:"lace",       label:"Lace",       wpiMin: 18, wpiMax: 40 },
+    { key:"fingering",  label:"Fingering / Sock", wpiMin: 14, wpiMax: 18 },
+    { key:"sport",      label:"Sport",      wpiMin: 12, wpiMax: 14 },
+    { key:"dk",         label:"DK",         wpiMin: 10, wpiMax: 12 },
+    { key:"worsted",    label:"Worsted / Aran", wpiMin: 8,  wpiMax: 10 },
+    { key:"bulky",      label:"Bulky",      wpiMin: 7,  wpiMax: 8 },
+    { key:"superbulky", label:"Super Bulky",wpiMin: 5,  wpiMax: 7 }
+  ];
 
-  COMMON_WEIGHTS.forEach((w) => {
-    selA.add(new Option(w.name, w.name));
-    selB.add(new Option(w.name, w.name));
-  });
-  selA.value = 'Worsted';
-  selB.value = 'Worsted';
+  const yarnA = document.getElementById("yarnA");
+  const yarnB = document.getElementById("yarnB");
+  const result = document.getElementById("result");
+  const btn = document.getElementById("calcBtn");
 
-  function update() {
-    const a = COMMON_WEIGHTS.find(w => w.name === selA.value);
-    const b = COMMON_WEIGHTS.find(w => w.name === selB.value);
-    const match = nearestYarnWeight(combinedWPI(a.wpi, b.wpi));
-    resultValue.textContent = match.name;
+  function midWPI(w){ return (w.wpiMin + w.wpiMax) / 2; }
+
+  function populateSelect(sel){
+    WEIGHTS.forEach(w=>{
+      const opt = document.createElement("option");
+      opt.value = w.key;
+      opt.textContent = w.label;
+      sel.appendChild(opt);
+    });
   }
 
-  selA.addEventListener('change', update);
-  selB.addEventListener('change', update);
-  update();
+  function getWeight(key){
+    return WEIGHTS.find(w => w.key === key);
+  }
+
+  // Holding 2 strands together: estimate combined diameter by adding areas.
+  // If WPI ~ 1/diameter, then:
+  // wpi_eff = 1 / sqrt( (1/wpi1)^2 + (1/wpi2)^2 )
+  function combinedWPI(wpi1, wpi2){
+    const inv1 = 1 / wpi1;
+    const inv2 = 1 / wpi2;
+    return 1 / Math.sqrt(inv1*inv1 + inv2*inv2);
+  }
+
+  function classifyWeight(wpi){
+    // Find the closest range by distance to range center (or inside range).
+    let best = null;
+    let bestScore = Infinity;
+
+    WEIGHTS.forEach(w=>{
+      const inRange = (wpi >= w.wpiMin && wpi <= w.wpiMax);
+      const center = midWPI(w);
+      const dist = Math.abs(wpi - center);
+      const score = inRange ? dist * 0.5 : dist; // prefer in-range
+      if(score < bestScore){
+        bestScore = score;
+        best = w;
+      }
+    });
+
+    return best;
+  }
+
+  function fmt(n){
+    return (Math.round(n * 10) / 10).toFixed(1);
+  }
+
+  function calc(){
+    const wA = getWeight(yarnA.value);
+    const wB = getWeight(yarnB.value);
+
+    const wpiA = midWPI(wA);
+    const wpiB = midWPI(wB);
+
+    const wpiEff = combinedWPI(wpiA, wpiB);
+    const guessed = classifyWeight(wpiEff);
+
+    const rangeText = `${fmt(guessed.wpiMin)}–${fmt(guessed.wpiMax)} WPI`;
+    const note = `Tip: swatch + measure gauge if you're matching a pattern exactly.`;
+
+    result.innerHTML = `
+      <div style="margin-bottom:8px;">
+        <span class="wpi-chip">${wA.label}</span>
+        <span class="wpi-chip">+</span>
+        <span class="wpi-chip">${wB.label}</span>
+      </div>
+      <div><b>Estimated combined WPI:</b> ${fmt(wpiEff)}</div>
+      <div><b>Closest yarn weight:</b> ${guessed.label}</div>
+      <div style="color:#6a5f50; margin-top:6px;"><b>Typical range:</b> ${rangeText}</div>
+      <div style="color:#6a5f50; margin-top:8px;">${note}</div>
+    `;
+  }
+
+  populateSelect(yarnA);
+  populateSelect(yarnB);
+
+  // nice defaults
+  yarnA.value = "fingering";
+  yarnB.value = "fingering";
+  calc();
+
+  btn.addEventListener("click", calc);
+})();
 </script>
 </body>
 </html>

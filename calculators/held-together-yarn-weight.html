@@ -6,7 +6,6 @@
   <title>Held Together Yarn Weight Calculator — Mint Chip Studio</title>
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/calculators/calc.css" />
-  <script src="/calculators/yarn-weights.js"></script>
 </head>
 <body>
 <nav>
@@ -38,23 +37,77 @@
       <h1 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.05;margin-bottom:0.4rem;">Held Together Yarn Weight Calculator</h1>
       <p style="color:var(--brown-mid);">Find the effective yarn weight when holding two strands together.</p>
     </div>
-    <div class="calc-box">
-      <div class="calc-row">
-        <div class="calc-field">
-          <label for="strand-a">Strand A</label>
-          <select id="strand-a"></select>
+
+    <div id="mcsWrap">
+      <div class="mcs-card">
+        <h2 class="mcs-title">What weight will my held-together yarn be?</h2>
+        <p class="mcs-sub">
+          Enter each yarn's length + grams per skein, and how many strands. Choose yards or meters. Then tap calculate.
+        </p>
+
+        <div class="mcs-units">
+          <div class="mcs-units-label">Length unit</div>
+          <div class="mcs-units-pill">
+            <button type="button" class="mcs-unit-btn is-active" id="unitYds">Yards</button>
+            <button type="button" class="mcs-unit-btn" id="unitM">Meters</button>
+          </div>
         </div>
-        <div class="calc-field">
-          <label for="strand-b">Strand B</label>
-          <select id="strand-b"></select>
+
+        <div class="mcs-grid">
+          <div class="mcs-section">
+            <div class="mcs-section-title">Yarn 1</div>
+
+            <div class="mcs-field">
+              <label id="len1Label">Yards per skein</label>
+              <input type="number" id="len1" />
+            </div>
+
+            <div class="mcs-field">
+              <label>Grams per skein</label>
+              <input type="number" id="g1" />
+            </div>
+
+            <div class="mcs-field">
+              <label># of strands</label>
+              <input type="number" id="s1" value="1" />
+            </div>
+          </div>
+
+          <div class="mcs-section">
+            <div class="mcs-section-title">Yarn 2</div>
+
+            <div class="mcs-field">
+              <label id="len2Label">Yards per skein</label>
+              <input type="number" id="len2" />
+            </div>
+
+            <div class="mcs-field">
+              <label>Grams per skein</label>
+              <input type="number" id="g2" />
+            </div>
+
+            <div class="mcs-field">
+              <label># of strands</label>
+              <input type="number" id="s2" value="1" />
+            </div>
+          </div>
+        </div>
+
+        <div class="mcs-actions">
+          <button class="mcs-btn mcs-btn-primary" id="calcBtn">Calculate</button>
+          <button class="mcs-btn" id="resetBtn">Reset</button>
+        </div>
+
+        <div class="mcs-results">
+          <div class="row"><span>Resulting weight (estimate)</span><strong id="outWeight">—</strong></div>
+          <div class="row"><span>Combined length per 100g</span><strong id="outCombined">—</strong></div>
+          <div class="row"><span>Yarn 1 effective length /100g</span><strong id="outY1">—</strong></div>
+          <div class="row"><span>Yarn 2 effective length /100g</span><strong id="outY2">—</strong></div>
+          <div class="row"><span>Notes</span><strong id="outNote">—</strong></div>
         </div>
       </div>
-      <div class="calc-result">
-        <div class="result-label">Held Together, This Behaves Like</div>
-        <div class="result-value" id="result-value">—</div>
-      </div>
-      <p class="calc-note" id="result-note"></p>
     </div>
+
     <div class="calc-subnav">
       <a href="/calculators/yarn-converter.html" class="btn">← Yarn Converter</a>
       <a href="/calculators/simplified-held-together.html" class="btn">Simplified Held Together →</a>
@@ -65,34 +118,222 @@
   <p>Copyright &copy; 2026 MintChip Studio LLC</p>
   <p>As an Amazon Associate I earn from qualifying purchases.</p>
 </footer>
+
+<style>
+#mcsWrap { padding:10px; }
+
+.mcs-card{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 22px;
+  border-radius: 18px;
+  background: #FAFAF7;
+  border: 1px solid #E6E2DB;
+  box-shadow: 0 12px 28px rgba(40,30,20,0.08);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.mcs-title{
+  text-align:center;
+  color:#2C1F19;
+  font-size:26px;
+  font-weight:800;
+  margin:0 0 6px;
+}
+
+.mcs-sub{
+  text-align:center;
+  color:#8B6B3F;
+  margin:0 0 16px;
+  font-size:14px;
+}
+
+.mcs-units{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#F2F3EE;
+  border:1px solid #DADFD5;
+  border-radius:14px;
+  padding:10px 14px;
+  margin-bottom:14px;
+}
+
+.mcs-units-pill{
+  display:flex;
+  border:1px solid #D8D3C7;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.mcs-unit-btn{
+  border:none;
+  background:transparent;
+  padding:8px 14px;
+  cursor:pointer;
+  color:#4A3A2F;
+  font-weight:600;
+}
+
+.mcs-unit-btn.is-active{
+  background:#2C1F19;
+  color:#FAFAF7;
+}
+
+.mcs-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.mcs-section{
+  background:#F2F3EE;
+  border:1px solid #DADFD5;
+  border-radius:16px;
+  padding:14px;
+
+  display:grid;
+  grid-template-rows:auto auto auto auto;
+  gap:12px;
+}
+
+.mcs-section-title{
+  font-weight:700;
+  color:#2C1F19;
+}
+
+.mcs-field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.mcs-card label{
+  font-size:13px;
+  color:#4A3A2F;
+  line-height:1.2;
+  min-height:16px;
+}
+
+.mcs-card input{
+  border:1px solid #D8D3C7;
+  background:#FFFFFF;
+  border-radius:14px;
+  padding:14px;
+  font-size:15px;
+  height:48px;
+}
+
+.mcs-actions{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+}
+
+.mcs-btn{
+  flex:1;
+  padding:14px;
+  border-radius:16px;
+  border:none;
+  background:#2C1F19;
+  color:#FAFAF7;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.mcs-btn:not(.mcs-btn-primary){
+  background:#8B6B3F;
+}
+
+.mcs-results{
+  margin-top:16px;
+  padding:12px;
+  border-radius:16px;
+  background:#F2F3EE;
+  border:1px solid #DADFD5;
+}
+
+.mcs-results .row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  background:#FFFFFF;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:10px;
+  color:#2C1F19;
+}
+
+.mcs-results .row span{ font-size:14px; }
+.mcs-results .row strong{ font-size:16px; }
+
+@media (max-width: 620px){
+  .mcs-grid{ grid-template-columns: 1fr; }
+}
+</style>
+
 <script>
-  const selA = document.getElementById('strand-a');
-  const selB = document.getElementById('strand-b');
-  const resultValue = document.getElementById('result-value');
-  const resultNote = document.getElementById('result-note');
+(function(){
+  const YD_TO_M = 0.9144;
+  let unit = "yd";
 
-  YARN_WEIGHTS.forEach((w, i) => {
-    const optA = new Option(w.name, i);
-    const optB = new Option(w.name, i);
-    selA.add(optA);
-    selB.add(optB);
-  });
-  selA.selectedIndex = 4; // Worsted
-  selB.selectedIndex = 4; // Worsted
+  const unitYds = document.getElementById("unitYds");
+  const unitM = document.getElementById("unitM");
+  const len1Label = document.getElementById("len1Label");
+  const len2Label = document.getElementById("len2Label");
 
-  function update() {
-    const a = YARN_WEIGHTS[selA.value];
-    const b = YARN_WEIGHTS[selB.value];
-    const wpi = combinedWPI(a.wpi, b.wpi);
-    const match = nearestYarnWeight(wpi);
-    resultValue.textContent = match.name;
-    resultNote.textContent =
-      `${a.name} + ${b.name} held together comes out to roughly ${wpi.toFixed(1)} WPI — closest to ${match.name} (~${match.wpi} WPI). Swatch to confirm gauge.`;
+  function setUnit(u){
+    unit = u;
+    unitYds.classList.toggle("is-active", u==="yd");
+    unitM.classList.toggle("is-active", u==="m");
+    len1Label.textContent = u==="yd"?"Yards per skein":"Meters per skein";
+    len2Label.textContent = u==="yd"?"Yards per skein":"Meters per skein";
   }
 
-  selA.addEventListener('change', update);
-  selB.addEventListener('change', update);
-  update();
+  unitYds.onclick=()=>setUnit("yd");
+  unitM.onclick=()=>setUnit("m");
+
+  function eff(len,g,str){
+    const meters = unit==="yd"?len*YD_TO_M:len;
+    return str*(meters/g)*100;
+  }
+
+  function combined(a,b){ return (a*b)/(a+b); }
+
+  function classify(v){
+    if(v>=600) return "Lace or thinner";
+    if(v>=350) return "Fingering";
+    if(v>=280) return "Sport";
+    if(v>=220) return "DK";
+    if(v>=160) return "Worsted";
+    if(v>=110) return "Bulky";
+    return "Super Bulky+";
+  }
+
+  document.getElementById("calcBtn").onclick=function(){
+    const l1=+len1.value,g1v=+g1.value,s1v=+s1.value;
+    const l2=+len2.value,g2v=+g2.value,s2v=+s2.value;
+
+    const y1=eff(l1,g1v,s1v);
+    const y2=eff(l2,g2v,s2v);
+    const comb=combined(Math.max(y1,y2),Math.min(y1,y2));
+
+    outY1.textContent=y1.toFixed(1);
+    outY2.textContent=y2.toFixed(1);
+    outCombined.textContent=comb.toFixed(1);
+    outWeight.textContent=classify(comb);
+    outNote.textContent="Calculated using your yarn put-ups and strands.";
+  };
+
+  document.getElementById("resetBtn").onclick=function(){
+    len1.value=g1.value=len2.value=g2.value="";
+    s1.value=s2.value=1;
+    outWeight.textContent=outCombined.textContent=outY1.textContent=outY2.textContent=outNote.textContent="—";
+  };
+
+  setUnit("yd");
+})();
 </script>
 </body>
 </html>
