@@ -90,7 +90,18 @@ nav {
   box-shadow: 0 8px 28px rgba(59,32,16,0.1);
   list-style: none;
 }
-.nav-dropdown:hover .dropdown-menu { display: block; }
+/* Invisible bridge over the gap above, so moving the mouse from the
+   trigger link down into the menu doesn't break :hover mid-transit. */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu { display: block; }
 .dropdown-menu a {
   display: block;
   padding: 0.5rem 0.9rem;
